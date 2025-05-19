@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust - Discover Amazing Places</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Three.js -->
+    <script src="/js/three.min.js"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- 3D Background Scene -->
+    <div id="bg-scene" class="scene-container"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/listings" class="navbar-brand">
+            <i class="fas fa-mountain"></i>
+            WanderLust
+        </a>
+        <ul class="navbar-nav">
+            <li><a href="/listings" class="nav-link">Home</a></li>
+            <li><a href="/listing/new" class="nav-link">Add Listing</a></li>
+            <li><a href="#" class="nav-link">About</a></li>
+            <li><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main>
+        <%- body %>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3><i class="fas fa-mountain"></i> WanderLust</h3>
+                <p>Discover amazing places around the world. Find your perfect getaway with WanderLust.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/listings">Home</a></li>
+                    <li><a href="/listing/new">Add Listing</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Popular Destinations</h4>
+                <ul>
+                    <li><a href="#">Malibu, United States</a></li>
+                    <li><a href="#">Bali, Indonesia</a></li>
+                    <li><a href="#">Mykonos, Greece</a></li>
+                    <li><a href="#">Aspen, United States</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect With Us</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-pinterest"></i> Pinterest</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <%= new Date().getFullYear() %> WanderLust. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Custom JS -->
+    <script src="/js/main.js"></script>
+</body>
+</html>

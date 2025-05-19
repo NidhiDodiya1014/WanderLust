@@ -1,0 +1,149 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <div class="listing-detail">
+        <div class="listing-image parallax" data-speed="0.1">
+            <img src="<%= ListingP.image %>" alt="<%= ListingP.title %>">
+        </div>
+        <div class="listing-info">
+            <h1 class="listing-title"><%= ListingP.title %></h1>
+            <div class="listing-location">
+                <i class="fas fa-map-marker-alt"></i>
+                <%= ListingP.location %>, <%= ListingP.country %>
+            </div>
+            <div class="listing-price">$<%= ListingP.price %> <span style="font-size: 1rem; font-weight: normal;">per night</span></div>
+            <p class="listing-description"><%= ListingP.description %></p>
+            <div class="listing-actions">
+                <a href="/listing/<%= ListingP._id %>/edit" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <form action="/listing/<%= ListingP._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+                <a href="/listings" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back to Listings
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3D Map View -->
+    <div style="margin-top: 3rem; background-color: var(--card-bg); border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow-md);">
+        <h2 style="margin-bottom: 1.5rem;">Location</h2>
+        <div id="map" style="height: 400px; border-radius: var(--border-radius); overflow: hidden; position: relative;">
+            <!-- Placeholder for the map -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background-color: #f1f5f9;">
+                <p>3D Map View Coming Soon</p>
+            </div>
+            
+            <!-- 3D Location Marker (Animated) -->
+            <div class="float" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div style="width: 40px; height: 40px; background-color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 10px rgba(37, 99, 235, 0.2);">
+                    <i class="fas fa-map-marker-alt" style="color: white; font-size: 1.5rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Similar Listings -->
+    <div style="margin-top: 3rem;">
+        <h2 style="margin-bottom: 1.5rem;">Similar Places You Might Like</h2>
+        <div style="display: flex; gap: 1.5rem; overflow-x: auto; padding: 1rem 0;">
+            <div class="card" style="min-width: 300px; margin-bottom: 1rem;">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" alt="Similar Listing" class="card-img">
+                    <div class="card-price">$1200/night</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Luxury Villa</h3>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Nearby Location
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="min-width: 300px; margin-bottom: 1rem;">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4" alt="Similar Listing" class="card-img">
+                    <div class="card-price">$950/night</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Beach House</h3>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Nearby Beach
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="min-width: 300px; margin-bottom: 1rem;">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d" alt="Similar Listing" class="card-img">
+                    <div class="card-price">$1100/night</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Mountain Cabin</h3>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Mountain Range
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3D Animation for the listing -->
+<script>
+    // Add 3D rotation effect to the listing image
+    const listingImage = document.querySelector('.listing-image');
+    
+    if (listingImage) {
+        listingImage.addEventListener('mousemove', (e) => {
+            const rect = listingImage.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            listingImage.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
+        });
+        
+        listingImage.addEventListener('mouseleave', () => {
+            listingImage.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+        });
+    }
+    
+    // Add GSAP animations
+    if (typeof gsap !== 'undefined') {
+        gsap.from('.listing-title', { 
+            duration: 0.8, 
+            y: 20, 
+            opacity: 0, 
+            ease: 'power3.out' 
+        });
+        
+        gsap.from('.listing-location, .listing-price, .listing-description', { 
+            duration: 0.8, 
+            y: 20, 
+            opacity: 0, 
+            stagger: 0.2, 
+            ease: 'power3.out',
+            delay: 0.3
+        });
+        
+        gsap.from('.listing-actions .btn', { 
+            duration: 0.5, 
+            scale: 0.8, 
+            opacity: 0, 
+            stagger: 0.1, 
+            ease: 'back.out(1.7)',
+            delay: 0.8
+        });
+    }
+</script>

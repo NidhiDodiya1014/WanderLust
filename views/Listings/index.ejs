@@ -1,0 +1,96 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Discover Your Dream Destination</h1>
+        <p class="hero-subtitle">Explore unique places to stay around the world</p>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search by location, title, or description...">
+            <button class="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Featured Categories -->
+    <div class="categories" style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 3rem; overflow-x: auto; padding: 1rem 0;">
+        <div class="category float" style="text-align: center; cursor: pointer;">
+            <div style="width: 80px; height: 80px; background-color: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: var(--shadow-md);">
+                <i class="fas fa-umbrella-beach" style="font-size: 2rem; color: var(--primary);"></i>
+            </div>
+            <span>Beach</span>
+        </div>
+        <div class="category float" style="text-align: center; cursor: pointer; animation-delay: 0.2s;">
+            <div style="width: 80px; height: 80px; background-color: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: var(--shadow-md);">
+                <i class="fas fa-mountain" style="font-size: 2rem; color: var(--primary);"></i>
+            </div>
+            <span>Mountain</span>
+        </div>
+        <div class="category float" style="text-align: center; cursor: pointer; animation-delay: 0.4s;">
+            <div style="width: 80px; height: 80px; background-color: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: var(--shadow-md);">
+                <i class="fas fa-city" style="font-size: 2rem; color: var(--primary);"></i>
+            </div>
+            <span>City</span>
+        </div>
+        <div class="category float" style="text-align: center; cursor: pointer; animation-delay: 0.6s;">
+            <div style="width: 80px; height: 80px; background-color: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: var(--shadow-md);">
+                <i class="fas fa-campground" style="font-size: 2rem; color: var(--primary);"></i>
+            </div>
+            <span>Camping</span>
+        </div>
+        <div class="category float" style="text-align: center; cursor: pointer; animation-delay: 0.8s;">
+            <div style="width: 80px; height: 80px; background-color: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; box-shadow: var(--shadow-md);">
+                <i class="fas fa-snowflake" style="font-size: 2rem; color: var(--primary);"></i>
+            </div>
+            <span>Winter</span>
+        </div>
+    </div>
+
+    <!-- Listings Section -->
+    <h2 style="margin-bottom: 2rem; font-size: 2rem; text-align: center;">Explore Amazing Places</h2>
+    
+    <div class="card-container">
+        <% for(let listing of allListings) { %>
+            <div class="card tilt-card">
+                <div class="card-img-container">
+                    <img src="<%= listing.image %>" alt="<%= listing.title %>" class="card-img tilt-card-img">
+                    <div class="card-price tilt-card-price">$<%= listing.price %>/night</div>
+                </div>
+                <div class="card-content tilt-card-content">
+                    <h3 class="card-title tilt-card-title"><%= listing.title %></h3>
+                    <div class="card-location tilt-card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <%= listing.location %>, <%= listing.country %>
+                    </div>
+                    <p class="card-description tilt-card-description"><%= listing.description %></p>
+                    <div class="card-actions">
+                        <a href="/listing/<%= listing._id %>/view" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <div>
+                            <a href="/listing/<%= listing._id %>/edit" class="btn btn-outline tooltip" data-tooltip="Edit Listing">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form style="display: inline;" action="/listing/<%= listing._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger tooltip" data-tooltip="Delete Listing">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    
+    <!-- Create Listing Button -->
+    <div style="text-align: center; margin-top: 3rem;">
+        <a href="/listing/new" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1.1rem;">
+            <i class="fas fa-plus"></i> Add New Listing
+        </a>
+    </div>
+</div>

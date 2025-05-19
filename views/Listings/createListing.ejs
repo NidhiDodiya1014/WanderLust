@@ -1,0 +1,89 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <div class="form-container">
+        <h1 class="form-title">Create New Listing</h1>
+        
+        <form action="/listings" method="POST">
+            <div class="form-group">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" id="title" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" id="description" class="form-textarea"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="image" class="form-label">Image URL</label>
+                <input type="text" name="image" id="image" class="form-input">
+            </div>
+            
+            <div class="form-group">
+                <label for="price" class="form-label">Price (per night)</label>
+                <input type="number" name="price" id="price" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" name="location" id="location" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" name="country" id="country" class="form-input" required>
+            </div>
+            
+            <div class="form-actions">
+                <a href="/listings" class="btn btn-outline">Cancel</a>
+                <button type="submit" class="btn btn-primary">Create Listing</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 3D Form Animation -->
+<script>
+    // Add 3D hover effect to form inputs
+    const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+    
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.style.transform = 'translateY(-5px)';
+            input.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+        });
+        
+        input.addEventListener('blur', () => {
+            input.style.transform = 'translateY(0)';
+            input.style.boxShadow = '';
+        });
+    });
+    
+    // Add GSAP animations
+    if (typeof gsap !== 'undefined') {
+        gsap.from('.form-title', { 
+            duration: 0.8, 
+            y: -20, 
+            opacity: 0, 
+            ease: 'power3.out' 
+        });
+        
+        gsap.from('.form-group', { 
+            duration: 0.5, 
+            y: 20, 
+            opacity: 0, 
+            stagger: 0.1, 
+            ease: 'power3.out',
+            delay: 0.3
+        });
+        
+        gsap.from('.form-actions', { 
+            duration: 0.5, 
+            y: 20, 
+            opacity: 0, 
+            ease: 'power3.out',
+            delay: 0.8
+        });
+    }
+</script>
